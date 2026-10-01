@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sève, Maison de parfum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F8; --surface:#FFFFFF; --soft:#EFEBF1; --ink:#1E1622; --muted:#6A5E70;
+  --plum:#33203A; --on-plum:#F4EEF6; --iris:#6E4F8C; --moss:#7C8240; --line:#E3DCE7;
+  --on-ink:#F7F6F8; --glass:#ffffff;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Jost","Futura","Avenir Next",system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151017; --surface:#1D1620; --soft:#241B28; --ink:#EFE8F2; --muted:#AFA2B6;
+    --plum:#2A1A31; --on-plum:#F4EEF6; --iris:#B79AD6; --moss:#B8BE78; --line:#342839; --on-ink:#151017; --glass:#d9d2de;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151017; --surface:#1D1620; --soft:#241B28; --ink:#EFE8F2; --muted:#AFA2B6;
+  --plum:#2A1A31; --on-plum:#F4EEF6; --iris:#B79AD6; --moss:#B8BE78; --line:#342839; --on-ink:#151017; --glass:#d9d2de;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 110px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;font-size:1.0625rem;line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--iris);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 1.5rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* announcement + header */
+.announce{background:var(--plum);color:var(--on-plum);text-align:center;font-size:.82rem;padding:.5rem 1rem;letter-spacing:.02em}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hdr-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:.9rem 1.5rem;max-width:1240px;margin:0 auto}
+.hdr nav{display:flex;gap:1.6rem;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.hdr nav a{text-decoration:none;color:var(--muted)}
+.hdr nav a:hover{color:var(--ink)}
+.logo{font-family:var(--display);font-size:1.9rem;text-decoration:none;letter-spacing:.18em;font-weight:500;text-align:center;line-height:1}
+.logo small{display:block;font-family:var(--body);font-size:.58rem;letter-spacing:.42em;color:var(--muted);margin-top:.3rem;font-weight:400}
+.hdr-r{display:flex;justify-content:flex-end;align-items:center;gap:1rem}
+.lang{display:flex;font-size:.8rem;letter-spacing:.1em}
+.lang button{background:none;border:0;padding:.25rem .4rem;cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.icon-btn{background:none;border:0;cursor:pointer;display:flex;align-items:center;gap:.35rem;padding:.3rem;font-size:.85rem}
+.icon-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.3}
+.count{min-width:1.2rem;height:1.2rem;border-radius:999px;background:var(--ink);color:var(--on-ink);font-size:.7rem;display:inline-grid;place-items:center;padding:0 .3rem}
+@media (max-width:860px){.hdr nav{display:none}.hdr-in{grid-template-columns:auto 1fr;}.logo{text-align:left}.logo small{display:none}}
+
+/* hero */
+.hero{background:var(--plum);color:var(--on-plum);overflow:hidden}
+.hero-in{display:grid;grid-template-columns:1.05fr 1fr;min-height:min(78vh,720px);align-items:center;gap:2rem}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,6.4vw,5.6rem);line-height:1.02;margin:0 0 1.5rem;letter-spacing:-.01em}
+.hero p{max-width:40ch;opacity:.82;margin:0 0 2.2rem;font-size:1.1rem}
+.hero-art{position:relative;height:100%;min-height:420px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3rem}
+.hero-art .b{position:relative;opacity:0;transform:translateY(24px);animation:up 1.2s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-art .b1{width:26%;animation-delay:.15s;margin-right:-4%}
+.hero-art .b2{width:38%;animation-delay:.35s;z-index:2}
+.hero-art .b3{width:26%;animation-delay:.55s;margin-left:-4%}
+.hero-art::after{content:"";position:absolute;left:12%;right:12%;bottom:2.4rem;height:28px;background:radial-gradient(closest-side,rgba(0,0,0,.45),transparent);filter:blur(4px)}
+@keyframes up{to{opacity:1;transform:none}}
+@media (max-width:860px){.hero-in{grid-template-columns:1fr;padding-top:3rem}.hero-art{min-height:320px}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid var(--ink);background:var(--ink);color:var(--on-ink);padding:.9rem 1.8rem;text-decoration:none;cursor:pointer;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;border-radius:0}
+.btn.light{background:var(--on-plum);color:var(--plum);border-color:var(--on-plum)}
+.btn.outline{background:transparent;color:var(--ink)}
+.btn.outline-light{background:transparent;color:var(--on-plum);border-color:color-mix(in srgb,var(--on-plum) 50%,transparent)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.full{width:100%}
+.btns{display:flex;gap:.75rem;flex-wrap:wrap}
+
+/* promises */
+.promises{border-bottom:1px solid var(--line)}
+.promises ul{list-style:none;margin:0;padding:1.6rem 0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;font-size:.92rem;color:var(--muted);text-align:center}
+.promises strong{display:block;color:var(--ink);font-weight:400;font-family:var(--display);font-size:1.1rem}
+@media (max-width:760px){.promises ul{grid-template-columns:1fr 1fr}}
+
+section{padding:6rem 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.08;margin:0}
+.lede{color:var(--muted);max-width:52ch;margin:.8rem 0 0}
+
+/* filters + grid */
+.filters{display:flex;gap:.4rem;flex-wrap:wrap}
+.filters button{background:none;border:1px solid var(--line);padding:.45rem 1rem;cursor:pointer;font-size:.88rem;color:var(--muted);border-radius:999px}
+.filters button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem 1.5rem}
+@media (max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.card{background:none;border:0;padding:0;text-align:left;cursor:pointer;display:block;width:100%}
+.card .ph{aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12%;position:relative;overflow:hidden;transition:background .4s}
+.card .ph svg{width:38%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.card:hover .ph svg{transform:translateY(-6px)}
+.card .badge{position:absolute;top:1rem;left:1rem;font-size:.75rem;background:var(--surface);padding:.2rem .6rem;color:var(--ink)}
+.card h3{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:1rem 0 .1rem}
+.card .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.93rem}
+.card .keys{font-size:.9rem;color:var(--muted);margin-top:.25rem}
+
+/* AI atelier tabs */
+.atelier{background:var(--soft)}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:2.5rem;overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:.9rem 1.3rem;cursor:pointer;font-size:.95rem;color:var(--muted);white-space:nowrap;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.panel[hidden]{display:none}
+@media (max-width:860px){.panel{grid-template-columns:1fr;gap:2rem}}
+.panel h3{font-family:var(--display);font-weight:400;font-size:2rem;margin:0 0 .5rem}
+.panel .intro{color:var(--muted);margin:0 0 1.75rem;max-width:44ch}
+.q{border:0;margin:0 0 1.5rem;padding:0}
+.q legend,.lbl{font-size:.95rem;margin-bottom:.6rem;padding:0;display:block;font-weight:400}
+.opts{display:flex;flex-wrap:wrap;gap:.45rem}
+.opts label{cursor:pointer}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:inline-block;border:1px solid var(--line);background:var(--surface);padding:.45rem 1rem;font-size:.92rem;border-radius:999px}
+.opts input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.opts input:focus-visible + span{outline:2px solid var(--iris);outline-offset:2px}
+.field{width:100%;border:1px solid var(--line);background:var(--surface);padding:.75rem .9rem;border-radius:0}
+textarea.field{min-height:5rem;resize:vertical}
+.fgroup{margin-bottom:1.25rem}
+.res{background:var(--surface);border:1px solid var(--line);padding:2rem;min-height:320px;display:flex;flex-direction:column}
+.res .empty{margin:auto;text-align:center;color:var(--muted);max-width:30ch}
+.res .empty svg{width:70px;opacity:.6;margin-bottom:1rem}
+.res-top{display:flex;gap:1.5rem;align-items:center;margin-bottom:1.25rem}
+.res-top svg{width:72px;flex:none}
+.res-name{font-family:var(--display);font-size:2rem;line-height:1.1;margin:0}
+.res-fam{color:var(--muted);font-size:.92rem;margin:.2rem 0 0}
+.res p{margin:0 0 1rem}
+.cardmsg{border:1px solid var(--line);padding:1.25rem 1.5rem;font-family:var(--display);font-style:italic;font-size:1.15rem;line-height:1.5;margin:0 0 1.25rem;background:var(--bg)}
+.small{font-size:.85rem;color:var(--muted)}
+.status{color:var(--muted);font-style:italic;margin:auto;text-align:center}
+.dots::after{content:"";animation:dots 1.4s steps(4) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.verdict{display:inline-block;font-size:.8rem;padding:.2rem .7rem;border:1px solid var(--moss);color:var(--moss);margin-bottom:.8rem;border-radius:999px}
+.pair{display:flex;align-items:flex-end;gap:.5rem;margin-bottom:1rem}
+.pair svg{width:56px}
+.pair span{font-family:var(--display);font-size:1.6rem;padding-bottom:1rem;color:var(--muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* story */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.story-art{background:var(--plum);aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.story-art svg{width:70%}
+.story blockquote{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.3;margin:0 0 1.5rem;font-weight:400}
+.story p{color:var(--muted);max-width:50ch}
+@media (max-width:860px){.story{grid-template-columns:1fr;gap:2rem}}
+
+/* studio */
+.studio details{border:1px solid var(--line);background:var(--surface)}
+.studio summary{cursor:pointer;padding:1.5rem 2rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.studio summary::-webkit-details-marker{display:none}
+.studio summary h2{font-size:1.8rem}
+.studio summary .small{display:block;margin-top:.3rem}
+.studio .plus{font-size:1.6rem;color:var(--muted);transition:transform .3s}
+.studio details[open] .plus{transform:rotate(45deg)}
+.studio-body{padding:0 2rem 2rem}
+.studio .panel{grid-template-columns:1fr 1.1fr}
+.out h4{font-family:var(--display);font-weight:400;font-size:1.25rem;margin:1.2rem 0 .4rem}
+.out h4:first-child{margin-top:0}
+.out p{margin:0 0 .5rem}
+.tag{display:inline-block;font-size:.72rem;border:1px solid var(--line);padding:0 .45rem;margin-right:.5rem;color:var(--muted);vertical-align:middle;font-family:var(--body)}
+
+/* newsletter + footer */
+.news{background:var(--plum);color:var(--on-plum);text-align:center}
+.news h2{margin-bottom:.8rem}
+.news p{opacity:.8;margin:0 auto 2rem;max-width:46ch}
+.news form{display:flex;max-width:460px;margin:0 auto;border-bottom:1px solid color-mix(in srgb,var(--on-plum) 50%,transparent)}
+.news input{flex:1;background:none;border:0;color:var(--on-plum);padding:.8rem 0}
+.news input::placeholder{color:color-mix(in srgb,var(--on-plum) 60%,transparent)}
+.news button{background:none;border:0;color:var(--on-plum);cursor:pointer;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.news .ok{margin-top:1rem;min-height:1.5em;font-size:.95rem}
+footer{padding:4rem 0 3rem;font-size:.92rem;color:var(--muted)}
+.fcols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem}
+.fcols h4{color:var(--ink);font-weight:400;margin:0 0 .8rem;font-size:.95rem}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.fcols a{text-decoration:none}
+.fcols a:hover{color:var(--ink)}
+.fbase{border-top:1px solid var(--line);padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.82rem}
+@media (max-width:760px){.fcols{grid-template-columns:1fr 1fr}}
+
+/* dialogs (product + bag) */
+dialog{border:0;padding:0;background:var(--surface);color:var(--ink);max-width:none;max-height:none}
+dialog::backdrop{background:rgba(20,10,24,.45);backdrop-filter:blur(2px)}
+.pd{width:min(1040px,94vw);height:min(760px,92vh);margin:auto}
+.pd-in{display:grid;grid-template-columns:1fr 1fr;height:100%}
+.pd-art{display:flex;align-items:flex-end;justify-content:center;padding-bottom:12%;position:relative}
+.pd-art svg{width:42%}
+.pd-body{padding:2.5rem;overflow-y:auto}
+.pd h2{font-size:2.6rem}
+.pd .fam{color:var(--muted);margin:.25rem 0 1.5rem}
+.pyr{display:grid;gap:0;margin:1.5rem 0;border-top:1px solid var(--line)}
+.pyr div{display:grid;grid-template-columns:5.5rem 1fr;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.pyr dt{color:var(--muted)} .pyr dd{margin:0}
+.sizes{display:flex;gap:.5rem;margin:1.5rem 0 1rem}
+.sizes label{flex:1;cursor:pointer}
+.sizes input{position:absolute;opacity:0}
+.sizes span{display:block;border:1px solid var(--line);padding:.8rem;text-align:center;font-size:.92rem}
+.sizes input:checked + span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.sizes input:focus-visible + span{outline:2px solid var(--iris)}
+.close{position:absolute;top:1rem;right:1rem;background:var(--surface);border:1px solid var(--line);width:40px;height:40px;cursor:pointer;font-size:1.2rem;z-index:3}
+.reviews{margin-top:2.5rem}
+.reviews h3{font-family:var(--display);font-weight:400;font-size:1.5rem;margin:0 0 .75rem}
+.stars{color:var(--iris);letter-spacing:.1em}
+.rv{border-bottom:1px solid var(--line);padding:.9rem 0;font-size:.95rem}
+.rv b{font-weight:400}
+.ai-sum{background:var(--soft);padding:1.1rem 1.25rem;margin:.75rem 0 1rem;font-size:.95rem}
+.ai-sum:empty{display:none}
+.linkbtn{background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px;font-size:.9rem;color:var(--iris)}
+@media (max-width:760px){.pd{height:94vh}.pd-in{grid-template-columns:1fr;grid-template-rows:auto 1fr;overflow-y:auto}.pd-art{height:300px}.pd-art svg{width:28%}.pd-body{overflow:visible;padding:1.75rem}}
+.bag{width:min(440px,100vw);height:100%;margin:0 0 0 auto;max-height:100vh}
+.bag-in{display:flex;flex-direction:column;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bag-h{display:flex;justify-content:space-between;align-items:center;padding:1.5rem;border-bottom:1px solid var(--line)}
+.bag-h h2{font-size:1.6rem}
+.bag-list{flex:1;overflow-y:auto;padding:0 1.5rem}
+.bi{display:grid;grid-template-columns:64px 1fr auto;gap:1rem;padding:1.2rem 0;border-bottom:1px solid var(--line);align-items:center}
+.bi .th{background:var(--soft);height:80px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+.bi .th svg{width:50%}
+.bi b{font-family:var(--display);font-weight:400;font-size:1.15rem;display:block}
+.qty{display:flex;align-items:center;gap:.5rem;margin-top:.3rem}
+.qty button{background:none;border:1px solid var(--line);width:26px;height:26px;cursor:pointer}
+.bag-f{padding:1.5rem;border-top:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;margin-bottom:1rem;font-size:1.05rem}
+.bag-empty{text-align:center;color:var(--muted);padding:4rem 1rem}
+
+/* concierge */
+.fab{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--on-ink);border:0;border-radius:999px;padding:.85rem 1.3rem;cursor:pointer;display:flex;align-items:center;gap:.6rem;font-size:.9rem;box-shadow:0 10px 30px rgba(20,10,24,.25)}
+.fab svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5}
+.chat{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));z-index:31;width:min(400px,calc(100vw - 2.5rem));height:min(600px,calc(100vh - 7rem));background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(20,10,24,.25)}
+.chat[hidden]{display:none}
+.chat-h{background:var(--plum);color:var(--on-plum);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center}
+.chat-h b{font-family:var(--display);font-weight:400;font-size:1.25rem;display:block}
+.chat-h span{font-size:.8rem;opacity:.75}
+.chat-h button{background:none;border:0;color:var(--on-plum);font-size:1.3rem;cursor:pointer}
+.log{flex:1;overflow-y:auto;padding:1.1rem;display:flex;flex-direction:column;gap:.7rem}
+.msg{max-width:86%;padding:.7rem .95rem;white-space:pre-wrap;line-height:1.5;font-size:.95rem}
+.msg.bot{background:var(--soft);align-self:flex-start}
+.msg.me{background:var(--ink);color:var(--on-ink);align-self:flex-end}
+.msg.sys{align-self:center;font-size:.8rem;color:var(--moss);background:none;padding:.2rem}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;padding:0 1.1rem .8rem}
+.chip{border:1px solid var(--line);background:none;border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;color:var(--muted)}
+.chip:hover{color:var(--ink);border-color:var(--ink)}
+.chat form{display:flex;border-top:1px solid var(--line)}
+.chat input{flex:1;border:0;background:none;padding:1rem 1.1rem}
+.chat form button{background:none;border:0;padding:0 1.1rem;cursor:pointer;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.toast{position:fixed;left:50%;bottom:calc(5.5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--on-ink);padding:.75rem 1.25rem;font-size:.9rem;opacity:0;transition:.3s;z-index:50;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.noai{font-size:.85rem;color:var(--muted);border:1px dashed var(--line);padding:.8rem 1rem;margin-top:1rem;display:none}
+body.no-ai .noai{display:block}
+</style>
+</head>
+<body>
+
+<div class="announce" data-i="announce"></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <nav aria-label="Menu">
+      <a href="#collection" data-i="navColl"></a>
+      <a href="#atelier" data-i="navAtelier"></a>
+      <a href="#maison" data-i="navMaison"></a>
+    </nav>
+    <a class="logo" href="#top">SÈVE<small>ANTIBES</small></a>
+    <div class="hdr-r">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="icon-btn" id="bagBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="sr" data-i="bag"></span><span class="count" id="bagCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap hero-in">
+      <div>
+        <h1 data-i="heroTitle"></h1>
+        <p data-i="heroText"></p>
+        <div class="btns">
+          <a class="btn light" href="#collection" data-i="heroCta1"></a>
+          <a class="btn outline-light" href="#atelier" data-i="heroCta2"></a>
+        </div>
+      </div>
+      <div class="hero-art" id="heroArt" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="promises"><div class="wrap"><ul id="promises"></ul></div></div>
+
+  <section id="collection">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 data-i="collTitle"></h2><p class="lede" data-i="collLede"></p></div>
+        <div class="filters" id="filters" role="group"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="atelier" class="atelier">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 data-i="atTitle"></h2><p class="lede" data-i="atLede"></p></div>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+
+      <!-- quiz -->
+      <div class="panel" role="tabpanel" id="p-quiz">
+        <form id="quizForm">
+          <h3 data-i="quizTitle"></h3>
+          <p class="intro" data-i="quizIntro"></p>
+          <div id="quizQs"></div>
+          <div class="fgroup"><label class="lbl" for="qMem" data-i="qMemory"></label><input class="field" id="qMem" maxlength="140" data-ph="qMemoryPh"></div>
+          <button class="btn" type="submit" data-i="quizBtn"></button>
+        </form>
+        <div class="res" id="quizOut" aria-live="polite"></div>
+      </div>
+
+      <!-- gift -->
+      <div class="panel" role="tabpanel" id="p-gift" hidden>
+        <form id="giftForm">
+          <h3 data-i="giftTitle"></h3>
+          <p class="intro" data-i="giftIntro"></p>
+          <div class="row2">
+            <div class="fgroup"><label class="lbl" for="gWho" data-i="gWho"></label><select class="field" id="gWho"></select></div>
+            <div class="fgroup"><label class="lbl" for="gOcc" data-i="gOcc"></label><select class="field" id="gOcc"></select></div>
+          </div>
+          <div class="fgroup"><label class="lbl" for="gBudget" data-i="gBudget"></label><select class="field" id="gBudget"></select></div>
+          <div class="fgroup"><label class="lbl" for="gAbout" data-i="gAbout"></label><textarea class="field" id="gAbout" required data-ph="gAboutPh"></textarea></div>
+          <div class="fgroup"><label class="lbl" for="gFrom" data-i="gFrom"></label><input class="field" id="gFrom" maxlength="40" data-ph="gFromPh"></div>
+          <button class="btn" type="submit" data-i="giftBtn"></button>
+        </form>
+        <div class="res" id="giftOut" aria-live="polite"></div>
+      </div>
+
+      <!-- layering -->
+      <div class="panel" role="tabpanel" id="p-layer" hidden>
+        <form id="layerForm">
+          <h3 data-i="layTitle"></h3>
+          <p class="intro" data-i="layIntro"></p>
+          <div class="fgroup"><label class="lbl" for="lA" data-i="lA"></label><select class="field" id="lA"></select></div>
+          <div class="fgroup"><label class="lbl" for="lB" data-i="lB"></label><select class="field" id="lB"></select></div>
+          <button class="btn" type="submit" data-i="layBtn"></button>
+        </form>
+        <div class="res" id="layOut" aria-live="polite"></div>
+      </div>
+
+      <!-- moment -->
+      <div class="panel" role="tabpanel" id="p-moment" hidden>
+        <form id="momForm">
+          <h3 data-i="momTitle"></h3>
+          <p class="intro" data-i="momIntro"></p>
+          <div class="fgroup"><label class="lbl" for="mText" data-i="mText"></label><textarea class="field" id="mText" required data-ph="mTextPh"></textarea></div>
+          <button class="btn" type="submit" data-i="momBtn"></button>
+        </form>
+        <div class="res" id="momOut" aria-live="polite"></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section id="maison">
+    <div class="wrap story">
+      <div class="story-art" id="storyArt" aria-hidden="true"></div>
+      <div>
+        <blockquote data-i="storyQuote"></blockquote>
+        <p data-i="storyP1"></p>
+        <p data-i="storyP2"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio" id="studio" style="padding-top:0">
+    <div class="wrap">
+      <details>
+        <summary><div><h2 data-i="stTitle"></h2><span class="small" data-i="stSub"></span></div><span class="plus" aria-hidden="true">+</span></summary>
+        <div class="studio-body">
+          <div class="panel">
+            <form id="studioForm">
+              <div class="fgroup"><label class="lbl" for="sName" data-i="sName"></label><input class="field" id="sName" required data-ph="sNamePh"></div>
+              <div class="fgroup"><label class="lbl" for="sNotes" data-i="sNotes"></label><textarea class="field" id="sNotes" required data-ph="sNotesPh"></textarea></div>
+              <div class="fgroup"><label class="lbl" for="sStory" data-i="sStory"></label><textarea class="field" id="sStory" data-ph="sStoryPh"></textarea></div>
+              <div class="row2">
+                <div class="fgroup"><label class="lbl" for="sTone" data-i="sTone"></label><select class="field" id="sTone"></select></div>
+                <div class="fgroup"><label class="lbl" for="sKind" data-i="sKind"></label><select class="field" id="sKind"></select></div>
+              </div>
+              <button class="btn" type="submit" data-i="stBtn"></button>
+            </form>
+            <div class="res out" id="stOut" aria-live="polite"></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="news">
+    <div class="wrap">
+      <h2 data-i="newsTitle"></h2>
+      <p data-i="newsText"></p>
+      <form id="newsForm"><input type="email" required data-ph="newsPh" aria-label="Email"><button type="submit" data-i="newsBtn"></button></form>
+      <p class="ok" id="newsOk" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div><a class="logo" href="#top" style="text-align:left;display:inline-block">SÈVE</a><p data-i="fAbout" style="max-width:32ch"></p></div>
+      <div><h4 data-i="fShop"></h4><ul><li><a href="#collection" data-i="navColl"></a></li><li><a href="#atelier" data-i="tabGift"></a></li><li><a href="#atelier" data-i="fDisc"></a></li></ul></div>
+      <div><h4 data-i="fHelp"></h4><ul><li><a href="legal.html#livraison" data-i="fShip"></a></li><li><a href="legal.html#retractation" data-i="fRet"></a></li><li><a href="legal.html#mentions" data-i="fContact"></a></li></ul></div>
+      <div><h4 data-i="fHouse"></h4><ul><li><a href="#maison" data-i="navMaison"></a></li><li><a href="#" data-i="fRefill"></a></li><li><a href="#" data-i="fStock"></a></li></ul></div>
+    </div>
+    <div class="fbase"><span data-i="fCopy"></span><span><a href="legal.html#mentions">Mentions légales</a> · <a href="legal.html#cgv">CGV</a> · <a href="legal.html#confidentialite">Confidentialité</a></span></div>
+  </div>
+</footer>
+
+<!-- product dialog -->
+<dialog class="pd" id="pd" aria-labelledby="pdName">
+  <div class="pd-in">
+    <div class="pd-art" id="pdArt"></div>
+    <div class="pd-body" id="pdBody"></div>
+  </div>
+  <button class="close" type="button" id="pdClose" aria-label="Close">×</button>
+</dialog>
+
+<!-- bag dialog -->
+<dialog class="bag" id="bag" aria-labelledby="bagTitle">
+  <div class="bag-in">
+    <div class="bag-h"><h2 id="bagTitle" data-i="bag"></h2><button class="close" style="position:static" type="button" id="bagClose" aria-label="Close">×</button></div>
+    <div class="bag-list" id="bagList"></div>
+    <div class="bag-f" id="bagFoot"></div>
+  </div>
+</dialog>
+
+<!-- concierge -->
+<button class="fab" id="fab" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z"/></svg><span data-i="fab"></span></button>
+<div class="chat" id="chat" hidden role="dialog" aria-labelledby="chatTitle">
+  <div class="chat-h"><div><b id="chatTitle" data-i="chatTitle"></b><span data-i="chatSub"></span></div><button type="button" id="chatClose" aria-label="Close">×</button></div>
+  <div class="log" id="log" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form id="chatForm"><input id="chatIn" autocomplete="off" data-ph="chatPh" aria-label="Message"><button type="submit" id="chatBtn" data-i="send"></button></form>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ================= SETTINGS (edit these) ================= */
+const WHATSAPP_NUMBER = "33600000000";   // international format, no + or spaces
+const FREE_SHIPPING_FROM = 100, SHIPPING_PRICE = 6.90;  // keep in sync with api/checkout.js
+
+/* ================= DATA ================= */
+const CATALOG = [
+  {id:"figue-noire", name:"Figue Noire", color:"#6B5236", tint:"#E9E1D7", tintD:"#2A2219", fam:"woody", badge:"best",
+   famL:{fr:"Boisé gourmand",en:"Woody gourmand"},
+   top:{fr:"Feuille de figuier, poivre noir",en:"Fig leaf, black pepper"}, heart:{fr:"Pulpe de figue, lait",en:"Fig pulp, milk"}, base:{fr:"Cèdre, benjoin",en:"Cedar, benzoin"},
+   desc:{fr:"Une figue cueillie trop mûre, sa feuille verte et laiteuse, une pointe de poivre. Chaud, rassurant, étonnamment sombre à la tombée du jour.",en:"A fig picked a little too ripe, its milky green leaf, a crack of pepper. Warm, comforting, and surprisingly dark as the day ends."},
+   p:[95,140],
+   reviews:[["Camille","5","Je reçois des compliments à chaque fois. Tient toute la journée sur un pull."],["James","5","Creamy fig, not sweet at all. My everyday scent now."],["Nadia","4","Magnifique mais un peu discret après 5 heures sur la peau."]]},
+  {id:"iris-pluie", name:"Iris Pluie", color:"#8A7CA8", tint:"#E6E1EE", tintD:"#231F2C", fam:"floral", badge:"new",
+   famL:{fr:"Floral poudré",en:"Powdery floral"},
+   top:{fr:"Bergamote, accord pluie",en:"Bergamot, rain accord"}, heart:{fr:"Iris, violette",en:"Orris, violet"}, base:{fr:"Musc blanc, vétiver",en:"White musk, vetiver"},
+   desc:{fr:"L'odeur d'un jardin juste après l'averse. L'iris y est frais, presque minéral, posé sur un musc qui sent la peau propre.",en:"The smell of a garden just after the rain. The orris is cool, almost mineral, resting on a musk that smells like clean skin."},
+   p:[110,160],
+   reviews:[["Léa","5","Élégant, discret, parfait pour le bureau."],["Sofia","5","Smells expensive in the best way. Soft but it lasts."],["Marc","3","Trop poudré pour moi, mais ma compagne l'adore."]]},
+  {id:"neroli-atlas", name:"Néroli Atlas", color:"#C9A24B", tint:"#F1E9D6", tintD:"#2B2517", fam:"fresh",
+   famL:{fr:"Floral hespéridé",en:"Citrus floral"},
+   top:{fr:"Néroli, petit-grain",en:"Neroli, petitgrain"}, heart:{fr:"Fleur d'oranger, cèdre de l'Atlas",en:"Orange blossom, Atlas cedar"}, base:{fr:"Ambre, musc",en:"Amber, musk"},
+   desc:{fr:"Un matin lumineux entre la Méditerranée et l'Atlas. Fleur d'oranger ensoleillée, bois de cèdre sec, et un ambre qui garde la chaleur.",en:"A bright morning between the Mediterranean and the Atlas mountains. Sunlit orange blossom, dry cedar wood, and an amber that holds the warmth."},
+   p:[95,140],
+   reviews:[["Inès","5","Ça sent les vacances. Je le porte tout l'été."],["Tom","4","Fresh and clean, a bit short-lived in the heat."],["Yasmine","5","La fleur d'oranger de mon enfance, en plus élégant."]]},
+  {id:"the-fume", name:"Thé Fumé", color:"#3E3D38", tint:"#E2E1DD", tintD:"#1F1E1B", fam:"smoky",
+   famL:{fr:"Cuir fumé",en:"Smoky leather"},
+   top:{fr:"Lapsang souchong, cardamome",en:"Lapsang souchong, cardamom"}, heart:{fr:"Cuir, bouleau",en:"Leather, birch"}, base:{fr:"Fève tonka, labdanum",en:"Tonka bean, labdanum"},
+   desc:{fr:"Une tasse de thé fumé près d'un feu de bois, un fauteuil en cuir patiné. Intime, enveloppant, fait pour les soirs d'hiver.",en:"A cup of smoked tea by a wood fire, a worn leather armchair. Intimate, enveloping, made for winter evenings."},
+   p:[120,175],
+   reviews:[["Hugo","5","Incroyable sillage, tenue de 10 heures facilement."],["Anna","4","Very bold at first, then settles into something cosy and sweet."],["Karim","5","Mon parfum du soir. Unique."]]},
+  {id:"rose-seche", name:"Rose Sèche", color:"#9C4F5E", tint:"#F0E0E3", tintD:"#2C1B1F", fam:"floral", badge:"limited",
+   famL:{fr:"Floral oriental",en:"Oriental floral"},
+   top:{fr:"Baies roses, safran",en:"Pink pepper, saffron"}, heart:{fr:"Rose de Damas séchée",en:"Dried Damask rose"}, base:{fr:"Oud, patchouli",en:"Oud, patchouli"},
+   desc:{fr:"Des pétales de rose de Damas séchés au soleil, relevés de safran, portés par un oud doux. Une rose adulte, profonde, jamais sucrée.",en:"Damask rose petals dried in the sun, lifted with saffron and carried by a soft oud. A grown-up rose, deep and never sugary."},
+   p:[130,190],
+   reviews:[["Sarah","5","La plus belle rose que j'ai sentie. Puissante."],["Olivia","5","Rich and moody. Got stopped in the street twice."],["Julie","4","Sublime, mais une seule vaporisation suffit !"]]},
+  {id:"sel-diode", name:"Sel d'Iode", color:"#5E8A8C", tint:"#DDE8E8", tintD:"#18221F", fam:"fresh",
+   famL:{fr:"Aromatique marin",en:"Aromatic marine"},
+   top:{fr:"Sel marin, pamplemousse",en:"Sea salt, grapefruit"}, heart:{fr:"Sauge sclarée",en:"Clary sage"}, base:{fr:"Bois flotté, ambre gris",en:"Driftwood, ambergris"},
+   desc:{fr:"La peau après une baignade au Cap d'Antibes. Sel, agrumes, sauge chauffée sur les rochers, et un bois flotté blanchi.",en:"Skin after a swim at Cap d'Antibes. Salt, citrus, sage warmed on the rocks, and sun-bleached driftwood."},
+   p:[95,140],
+   reviews:[["Paul","5","Frais sans être banal. Enfin un marin qui ne sent pas le gel douche."],["Emma","4","Lovely and airy, reapply after lunch."],["Lina","5","Unisexe parfait, mon copain me le vole."]]}
+];
+const FAMS = ["all","fresh","floral","woody","smoky"];
+const QUIZ = [
+  {id:"moment",fr:"Quand le porterez-vous ?",en:"When will you wear it?",o:[["morning","Le jour","Daytime"],["evening","Le soir","Evenings"],["always","Tout le temps","All the time"]]},
+  {id:"family",fr:"Ce qui vous attire",en:"What draws you in",o:[["fresh","Frais, zesté","Fresh, zesty"],["floral","Fleurs","Flowers"],["woody","Bois, épices","Woods, spice"],["smoky","Fumé, cuir","Smoke, leather"]]},
+  {id:"presence",fr:"Présence souhaitée",en:"How present should it be?",o:[["skin","Près de la peau","Close to the skin"],["trail","On le remarque","People notice"]]},
+  {id:"season",fr:"Votre saison",en:"Your season",o:[["spring","Printemps","Spring"],["summer","Été","Summer"],["autumn","Automne","Autumn"],["winter","Hiver","Winter"]]}
+];
+
+const T = {
+fr:{
+ announce:"Livraison offerte dès 100 €. Deux échantillons offerts avec chaque commande.",
+ navColl:"Parfums", navAtelier:"Atelier IA", navMaison:"La Maison", bag:"Panier",
+ heroTitle:"Le parfum, matière vivante.", heroText:"Six créations composées à la main à Antibes, macérées huit semaines et remplies flacon par flacon.",
+ heroCta1:"Découvrir la collection", heroCta2:"Trouver mon parfum",
+ promises:[["Composé à Antibes","Petites séries numérotées"],["8 semaines","De macération lente"],["Flacons rechargeables","Recharge à -30 %"],["Échantillons offerts","Essayez avant d'ouvrir"]],
+ collTitle:"La collection", collLede:"Chaque parfum se révèle en trois temps : tête, cœur et fond.",
+ fams:{all:"Tout",fresh:"Frais",floral:"Floral",woody:"Boisé",smoky:"Fumé"},
+ badges:{best:"Meilleure vente",new:"Nouveau",limited:"Édition limitée"},
+ from:"Dès", top:"Tête", heart:"Cœur", base:"Fond",
+ atTitle:"L'Atelier IA", atLede:"Nos outils de conseil, guidés par l'intelligence artificielle et limités à nos propres créations.",
+ tabQuiz:"Trouver mon parfum", tabGift:"Offrir", tabLayer:"Superposer", tabMoment:"Pour l'occasion",
+ quizTitle:"Trouver mon parfum", quizIntro:"Quatre questions et un souvenir. Le conseiller choisit la création qui vous ressemble.",
+ qMemory:"Une odeur qui vous rappelle un souvenir (facultatif)", qMemoryPh:"Ex. le jardin de ma grand-mère après la pluie", quizBtn:"Voir mon parfum", quizMissing:"Répondez aux quatre questions.",
+ quizEmpty:"Votre parfum apparaîtra ici.",
+ giftTitle:"Le conseiller cadeau", giftIntro:"Décrivez la personne : l'IA choisit le parfum et rédige le mot de la carte.",
+ gWho:"Pour qui ?", gWhoO:[["partner","Mon/ma partenaire"],["mother","Ma mère"],["father","Mon père"],["friend","Un·e ami·e"],["colleague","Un·e collègue"]],
+ gOcc:"L'occasion", gOccO:[["birthday","Anniversaire"],["anniversary","Anniversaire de couple"],["thanks","Remerciement"],["holidays","Fêtes"],["justbecause","Sans raison"]],
+ gBudget:"Budget", gBudgetO:[["any","Peu importe"],["100","Jusqu'à 100 €"],["130","Jusqu'à 130 €"]],
+ gAbout:"Parlez-nous de cette personne", gAboutPh:"Ex. Elle adore la mer, s'habille simplement, part randonner le week-end…",
+ gFrom:"Signé par (facultatif)", gFromPh:"Ex. Atika", giftBtn:"Trouver le cadeau", giftEmpty:"Le parfum idéal et le mot de la carte apparaîtront ici.", cardLbl:"Mot pour la carte",
+ layTitle:"Le laboratoire de superposition", layIntro:"Choisissez deux parfums. L'IA vous dit si l'accord fonctionne, et comment les porter ensemble.",
+ lA:"Premier parfum", lB:"Second parfum", layBtn:"Tester l'accord", laySame:"Choisissez deux parfums différents.", layEmpty:"Votre accord apparaîtra ici.",
+ momTitle:"Un parfum pour l'occasion", momIntro:"Décrivez le moment : la tenue, le lieu, la météo. L'IA choisit le bon parfum pour ce jour-là.",
+ mText:"Votre moment", mTextPh:"Ex. Dîner en terrasse à Nice samedi soir, robe en lin, il fera 24 degrés", momBtn:"Choisir pour moi", momEmpty:"Votre choix du jour apparaîtra ici.",
+ addBag:"Ajouter au panier", view:"Voir le parfum", added:"Ajouté au panier", spray:"Où vaporiser",
+ storyQuote:"« Nous composons comme on cuisine en famille : lentement, avec de vraies matières. »",
+ storyP1:"Sève est née dans un petit atelier d'Antibes, à quelques kilomètres des champs de fleurs de Grasse. Chaque parfum est composé, macéré puis rempli à la main, en séries de 300 flacons.",
+ storyP2:"Nos flacons sont rechargeables à vie, nos étuis en papier recyclé, et nos matières premières sourcées auprès de producteurs que nous connaissons par leur nom.",
+ stTitle:"Espace marque", stSub:"Outil interne : rédaction IA de fiches produits et posts réseaux sociaux",
+ sName:"Nom du parfum", sNamePh:"Ex. Ambre Kasbah", sNotes:"Notes (tête, cœur, fond)", sNotesPh:"Tête : … / Cœur : … / Fond : …",
+ sStory:"Inspiration (facultatif)", sStoryPh:"Ex. une fin d'après-midi dans un souk", sTone:"Ton", tones:[["poetic","Poétique"],["minimal","Sobre"],["playful","Léger"]],
+ sKind:"Format", kinds:[["product","Fiche produit"],["instagram","Post Instagram"],["newsletter","Newsletter"]],
+ stBtn:"Rédiger", stEmpty:"Le texte en français et en anglais apparaîtra ici.", copy:"Copier", copied:"Copié",
+ newsTitle:"Le carnet Sève", newsText:"Nouvelles créations, éditions limitées et coulisses de l'atelier, une fois par mois.", newsPh:"Votre adresse e-mail", newsBtn:"S'inscrire", newsOk:"Merci, vous êtes inscrit·e.",
+ fAbout:"Maison de parfum artisanale à Antibes, France.", fShop:"Boutique", fDisc:"Coffret découverte", fHelp:"Aide", fShip:"Livraison", fRet:"Retours", fContact:"Contact", fHouse:"La Maison", fRefill:"Recharges", fStock:"Revendeurs",
+ fCopy:"© 2026 Sève, Antibes", fDemo:"Site de démonstration",
+ fab:"Conseiller", chatTitle:"Votre conseiller Sève", chatSub:"Répond en quelques secondes",
+ chatHello:"Bonjour et bienvenue chez Sève. Dites-moi ce que vous aimez porter, ou pour qui vous cherchez : je peux aussi ajouter un parfum à votre panier.",
+ chatPh:"Écrivez votre message…", send:"Envoyer", chips:["Un parfum pour un premier rendez-vous","Lequel tient le plus longtemps ?","Une idée pour ma mère"],
+ reviewsT:"Avis clients", sumBtn:"Résumer les avis avec l'IA", reviewsN:"avis",
+ bagEmpty:"Votre panier est vide.", total:"Total", checkout:"Commander", checkoutNote:"Paiement désactivé sur ce site de démonstration.", remove:"Retirer",
+ thinking:"Réflexion en cours", noAi:"Les fonctions IA s'activent quand la page est ouverte dans Claude.",
+ errDeclined:"Les fonctions IA sont désactivées pour cette visite.", errBusy:"Trop de demandes. Réessayez dans une minute.", errOther:"La réponse n'a pas pu être générée. Réessayez.",
+ chatAdded:"a été ajouté au panier",
+ subtotal:"Sous-total", shipping:"Livraison", shipFree:"Offerte", payBtn:"Payer par carte", waBtn:"Commander sur WhatsApp", waAsk:"Une question ? WhatsApp",
+ secure:"Paiement sécurisé par Stripe : carte bancaire, Apple Pay, Google Pay.", redirect:"Redirection vers le paiement sécurisé…", payErr:"Le paiement n'a pas pu démarrer. Réessayez.",
+ paidMsg:"Merci pour votre commande ! Votre reçu vous a été envoyé par e-mail.", canceledMsg:"Paiement annulé. Votre panier est conservé.",
+ waHello:"Bonjour Sève, je souhaite commander :", waQ:"Bonjour Sève, j'ai une question sur"
+},
+en:{
+ announce:"Free delivery from €100. Two free samples with every order.",
+ navColl:"Fragrances", navAtelier:"AI Atelier", navMaison:"The House", bag:"Bag",
+ heroTitle:"Perfume as a living material.", heroText:"Six creations blended by hand in Antibes, macerated for eight weeks and filled bottle by bottle.",
+ heroCta1:"Discover the collection", heroCta2:"Find my scent",
+ promises:[["Blended in Antibes","Small numbered batches"],["8 weeks","Of slow maceration"],["Refillable bottles","Refills at 30% off"],["Free samples","Try before you open"]],
+ collTitle:"The collection", collLede:"Each perfume unfolds in three stages: top, heart and base.",
+ fams:{all:"All",fresh:"Fresh",floral:"Floral",woody:"Woody",smoky:"Smoky"},
+ badges:{best:"Bestseller",new:"New",limited:"Limited edition"},
+ from:"From", top:"Top", heart:"Heart", base:"Base",
+ atTitle:"The AI Atelier", atLede:"Our advice tools, guided by artificial intelligence and limited to our own creations.",
+ tabQuiz:"Find my scent", tabGift:"Gifting", tabLayer:"Layering", tabMoment:"For the occasion",
+ quizTitle:"Find my scent", quizIntro:"Four questions and one memory. The advisor picks the creation that feels like you.",
+ qMemory:"A smell that brings back a memory (optional)", qMemoryPh:"E.g. my grandmother's garden after rain", quizBtn:"See my scent", quizMissing:"Answer all four questions.",
+ quizEmpty:"Your scent will appear here.",
+ giftTitle:"The gift advisor", giftIntro:"Describe the person: the AI picks the perfume and writes the card message.",
+ gWho:"Who is it for?", gWhoO:[["partner","My partner"],["mother","My mother"],["father","My father"],["friend","A friend"],["colleague","A colleague"]],
+ gOcc:"Occasion", gOccO:[["birthday","Birthday"],["anniversary","Anniversary"],["thanks","Thank you"],["holidays","Holidays"],["justbecause","Just because"]],
+ gBudget:"Budget", gBudgetO:[["any","Any"],["100","Up to €100"],["130","Up to €130"]],
+ gAbout:"Tell us about them", gAboutPh:"E.g. She loves the sea, dresses simply, goes hiking on weekends…",
+ gFrom:"Signed by (optional)", gFromPh:"E.g. Atika", giftBtn:"Find the gift", giftEmpty:"The ideal perfume and card message will appear here.", cardLbl:"Card message",
+ layTitle:"The layering lab", layIntro:"Pick two perfumes. The AI tells you whether the pairing works, and how to wear them together.",
+ lA:"First perfume", lB:"Second perfume", layBtn:"Test the pairing", laySame:"Choose two different perfumes.", layEmpty:"Your pairing will appear here.",
+ momTitle:"A scent for the occasion", momIntro:"Describe the moment: the outfit, the place, the weather. The AI picks the right perfume for that day.",
+ mText:"Your moment", mTextPh:"E.g. Terrace dinner in Nice on Saturday night, linen dress, 24 degrees", momBtn:"Choose for me", momEmpty:"Today's pick will appear here.",
+ addBag:"Add to bag", view:"View perfume", added:"Added to bag", spray:"Where to spray",
+ storyQuote:"“We compose the way a family cooks: slowly, with real ingredients.”",
+ storyP1:"Sève was born in a small workshop in Antibes, a few kilometres from the flower fields of Grasse. Every perfume is composed, macerated and hand-filled in batches of 300 bottles.",
+ storyP2:"Our bottles are refillable for life, our boxes are recycled paper, and our raw materials come from growers we know by name.",
+ stTitle:"Brand space", stSub:"Internal tool: AI writing for product pages and social posts",
+ sName:"Perfume name", sNamePh:"E.g. Ambre Kasbah", sNotes:"Notes (top, heart, base)", sNotesPh:"Top: … / Heart: … / Base: …",
+ sStory:"Inspiration (optional)", sStoryPh:"E.g. late afternoon in a souk", sTone:"Tone", tones:[["poetic","Poetic"],["minimal","Minimal"],["playful","Playful"]],
+ sKind:"Format", kinds:[["product","Product page"],["instagram","Instagram post"],["newsletter","Newsletter"]],
+ stBtn:"Write it", stEmpty:"The French and English copy will appear here.", copy:"Copy", copied:"Copied",
+ newsTitle:"The Sève journal", newsText:"New creations, limited editions and behind the scenes at the workshop, once a month.", newsPh:"Your email address", newsBtn:"Subscribe", newsOk:"Thank you, you're subscribed.",
+ fAbout:"Artisan perfume house in Antibes, France.", fShop:"Shop", fDisc:"Discovery set", fHelp:"Help", fShip:"Delivery", fRet:"Returns", fContact:"Contact", fHouse:"The House", fRefill:"Refills", fStock:"Stockists",
+ fCopy:"© 2026 Sève, Antibes", fDemo:"Demo website",
+ fab:"Advisor", chatTitle:"Your Sève advisor", chatSub:"Replies in seconds",
+ chatHello:"Hello and welcome to Sève. Tell me what you like to wear, or who you're shopping for. I can also add a perfume to your bag.",
+ chatPh:"Type your message…", send:"Send", chips:["A scent for a first date","Which one lasts longest?","An idea for my mother"],
+ reviewsT:"Customer reviews", sumBtn:"Summarise reviews with AI", reviewsN:"reviews",
+ bagEmpty:"Your bag is empty.", total:"Total", checkout:"Checkout", checkoutNote:"Payment is disabled on this demo site.", remove:"Remove",
+ thinking:"Thinking", noAi:"AI features turn on when this page is opened in Claude.",
+ errDeclined:"AI features are turned off for this visit.", errBusy:"Too many requests. Try again in a minute.", errOther:"The answer couldn't be generated. Try again.",
+ chatAdded:"was added to your bag",
+ subtotal:"Subtotal", shipping:"Delivery", shipFree:"Free", payBtn:"Pay by card", waBtn:"Order on WhatsApp", waAsk:"Questions? WhatsApp",
+ secure:"Secure payment by Stripe: card, Apple Pay, Google Pay.", redirect:"Redirecting to secure payment…", payErr:"Payment couldn't start. Try again.",
+ paidMsg:"Thank you for your order! Your receipt has been sent by email.", canceledMsg:"Payment cancelled. Your bag has been kept.",
+ waHello:"Hello Sève, I'd like to order:", waQ:"Hello Sève, I have a question about"
+}};
+
+/* ================= STATE ================= */
+let lang="fr", filter="all", bag=[], curTab="quiz", sample=null;
+try{ const s=localStorage.getItem("seve-lang"); if(s==="fr"||s==="en") lang=s; }catch(e){}
+try{ const b=JSON.parse(localStorage.getItem("seve-bag")||"[]"); if(Array.isArray(b)) bag=b.filter(x=>CATALOG.some(p=>p.id===x.id)); }catch(e){}
+const $=s=>document.querySelector(s);
+const t=k=>T[lang][k];
+const byId=id=>CATALOG.find(p=>p.id===id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dark=()=>{const a=document.documentElement.dataset.theme; return a? a==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;};
+
+/* ================= BOTTLE SVG ================= */
+let gid=0;
+function bottle(p, big){
+  const g="g"+(++gid);
+  const col=p.color;
+  return `<svg viewBox="0 0 120 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(p.name)}">
+  <defs>
+    <linearGradient id="${g}l" x1="0" x2="1"><stop offset="0" stop-color="${col}" stop-opacity=".95"/><stop offset=".55" stop-color="${col}" stop-opacity=".75"/><stop offset="1" stop-color="${col}" stop-opacity=".95"/></linearGradient>
+    <linearGradient id="${g}c" x1="0" x2="1"><stop offset="0" stop-color="#1a1419"/><stop offset=".45" stop-color="#4a3f47"/><stop offset="1" stop-color="#140f13"/></linearGradient>
+    <linearGradient id="${g}s" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect x="40" y="4" width="40" height="40" rx="2" fill="url(#${g}c)"/>
+  <rect x="50" y="44" width="20" height="10" fill="#b9aeb6"/>
+  <rect x="12" y="54" width="96" height="150" rx="6" fill="#ffffff" fill-opacity=".22" stroke="#ffffff" stroke-opacity=".55"/>
+  <rect x="16" y="70" width="88" height="130" rx="4" fill="url(#${g}l)"/>
+  <rect x="22" y="60" width="6" height="136" rx="3" fill="url(#${g}s)"/>
+  <rect x="30" y="108" width="60" height="54" fill="#FBF8F6"/>
+  <text x="60" y="126" text-anchor="middle" font-family="Bodoni Moda, Didot, Georgia, serif" font-size="9" letter-spacing="2.4" fill="#1E1622">SÈVE</text>
+  <line x1="46" x2="74" y1="132" y2="132" stroke="#1E1622" stroke-width=".4"/>
+  <text x="60" y="145" text-anchor="middle" font-family="Bodoni Moda, Didot, Georgia, serif" font-style="italic" font-size="${p.name.length>10?6.2:7}" fill="#1E1622">${esc(p.name)}</text>
+  <text x="60" y="155" text-anchor="middle" font-family="Jost, sans-serif" font-size="4" letter-spacing="1" fill="#6A5E70">EAU DE PARFUM</text>
+</svg>`;
+}
+
+/* ================= RENDER ================= */
+function renderAll(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i]").forEach(el=>{const v=t(el.dataset.i); if(typeof v==="string") el.textContent=v;});
+  document.querySelectorAll("[data-ph]").forEach(el=>el.placeholder=t(el.dataset.ph));
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+  $("#promises").innerHTML=t("promises").map(([a,b])=>`<li><strong>${a}</strong>${b}</li>`).join("");
+  renderFilters(); renderGrid(); renderTabs(); renderQuiz(); renderSelects(); renderEmpties(); renderBag(); renderChips();
+  if(!chatHistory.length) renderLog();
+  if($("#pd").open && curProduct) openProduct(curProduct,true);
+}
+function renderFilters(){
+  $("#filters").innerHTML=FAMS.map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===filter}">${t("fams")[f]}</button>`).join("");
+  $("#filters").querySelectorAll("button").forEach(b=>b.onclick=()=>{filter=b.dataset.f;renderFilters();renderGrid();});
+}
+function renderGrid(){
+  const list=CATALOG.filter(p=>filter==="all"||p.fam===filter);
+  $("#grid").innerHTML=list.map(p=>`
+    <button class="card" type="button" data-id="${p.id}">
+      <div class="ph" style="background:${dark()?p.tintD:p.tint}">${p.badge?`<span class="badge">${t("badges")[p.badge]}</span>`:""}${bottle(p)}</div>
+      <h3>${esc(p.name)}</h3>
+      <div class="meta"><span>${p.famL[lang]}</span><span>${t("from")} ${p.p[0]} €</span></div>
+      <div class="keys">${p.heart[lang]}</div>
+    </button>`).join("");
+  $("#grid").querySelectorAll(".card").forEach(c=>c.onclick=()=>openProduct(c.dataset.id));
+}
+const TABS=[["quiz","tabQuiz"],["gift","tabGift"],["layer","tabLayer"],["moment","tabMoment"]];
+function renderTabs(){
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" type="button" id="t-${k}" aria-controls="p-${k}" aria-selected="${k===curTab}" tabindex="${k===curTab?0:-1}">${t(l)}</button>`).join("");
+  $("#tabs").querySelectorAll("button").forEach((b,i)=>{
+    b.onclick=()=>setTab(TABS[i][0]);
+    b.onkeydown=e=>{ if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ const n=(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length; setTab(TABS[n][0]); $("#t-"+TABS[n][0]).focus(); } };
+  });
+  TABS.forEach(([k])=>$("#p-"+k).hidden=k!==curTab);
+}
+function setTab(k){curTab=k;renderTabs();}
+function renderQuiz(){
+  const keep={}; QUIZ.forEach(q=>{const c=document.querySelector(`input[name="${q.id}"]:checked`); if(c) keep[q.id]=c.value;});
+  $("#quizQs").innerHTML=QUIZ.map(q=>`<fieldset class="q"><legend>${q[lang]}</legend><div class="opts">${q.o.map(o=>`<label><input type="radio" name="${q.id}" value="${o[0]}" ${keep[q.id]===o[0]?"checked":""}><span>${lang==="fr"?o[1]:o[2]}</span></label>`).join("")}</div></fieldset>`).join("");
+}
+function fillSelect(sel, opts){ const v=sel.value; sel.innerHTML=opts.map(o=>`<option value="${o[0]}">${esc(o[1])}</option>`).join(""); if(v && opts.some(o=>o[0]===v)) sel.value=v; }
+function renderSelects(){
+  fillSelect($("#gWho"),t("gWhoO")); fillSelect($("#gOcc"),t("gOccO")); fillSelect($("#gBudget"),t("gBudgetO"));
+  fillSelect($("#sTone"),t("tones")); fillSelect($("#sKind"),t("kinds"));
+  const po=CATALOG.map(p=>[p.id,p.name]);
+  fillSelect($("#lA"),po); fillSelect($("#lB"),po);
+  if(!$("#lB").dataset.set){ $("#lB").value="neroli-atlas"; $("#lA").value="the-fume"; $("#lB").dataset.set=1; }
+}
+const EMPTY_ICON=`<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1"><rect x="18" y="4" width="24" height="12"/><rect x="10" y="20" width="40" height="36" rx="3"/><path d="M20 38h20"/></svg>`;
+const empties={quizOut:"quizEmpty",giftOut:"giftEmpty",layOut:"layEmpty",momOut:"momEmpty",stOut:"stEmpty"};
+function renderEmpties(){ for(const [id,k] of Object.entries(empties)){ const el=$("#"+id); if(!el.dataset.filled) el.innerHTML=`<div class="empty">${EMPTY_ICON}<p>${t(k)}</p></div>`; } }
+function busy(el){ el.dataset.filled=1; el.innerHTML=`<p class="status"><span class="dots">${t("thinking")}</span></p>`; }
+function fail(el,e){ el.innerHTML=`<p class="status"></p>`; el.firstChild.textContent=errCopy(e); }
+
+/* ================= PRODUCT ================= */
+let curProduct=null;
+function openProduct(id, rerender){
+  const p=byId(id); if(!p) return; curProduct=id;
+  const size = rerender ? (document.querySelector('input[name="size"]:checked')?.value||"0") : "0";
+  $("#pdArt").style.background=dark()?p.tintD:p.tint;
+  $("#pdArt").innerHTML=bottle(p,true);
+  $("#pdBody").innerHTML=`
+    <h2 id="pdName">${esc(p.name)}</h2>
+    <p class="fam">${p.famL[lang]} · Eau de parfum</p>
+    <p>${p.desc[lang]}</p>
+    <dl class="pyr">
+      <div><dt>${t("top")}</dt><dd>${p.top[lang]}</dd></div>
+      <div><dt>${t("heart")}</dt><dd>${p.heart[lang]}</dd></div>
+      <div><dt>${t("base")}</dt><dd>${p.base[lang]}</dd></div>
+    </dl>
+    <div class="sizes" role="radiogroup">
+      ${[50,100].map((ml,i)=>`<label><input type="radio" name="size" value="${i}" ${String(i)===size?"checked":""}><span>${ml} ml · ${p.p[i]} €</span></label>`).join("")}
+    </div>
+    <button class="btn full" type="button" id="pdAdd">${t("addBag")}</button>
+    <a class="btn outline full" style="margin-top:.6rem" target="_blank" rel="noopener" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t("waQ")+" "+p.name)}">${t("waAsk")}</a>
+    <div class="reviews">
+      <h3>${t("reviewsT")} <span class="stars" aria-hidden="true">★★★★★</span> <span class="small">${(p.reviews.reduce((a,r)=>a+ +r[1],0)/p.reviews.length).toFixed(1)} · ${p.reviews.length} ${t("reviewsN")}</span></h3>
+      <button class="linkbtn" type="button" id="sumBtn">${t("sumBtn")}</button>
+      <div class="ai-sum" id="aiSum" aria-live="polite"></div>
+      ${p.reviews.map(r=>`<div class="rv"><span class="stars">${"★".repeat(+r[1])}${"☆".repeat(5-r[1])}</span> <b>${esc(r[0])}</b><br>${esc(r[2])}</div>`).join("")}
+    </div>`;
+  $("#pdAdd").onclick=()=>{ addToBag(p.id,+document.querySelector('input[name="size"]:checked').value); };
+  $("#sumBtn").onclick=()=>summarizeReviews(p);
+  if(!$("#pd").open) $("#pd").showModal();
+}
+$("#pdClose").onclick=()=>$("#pd").close();
+$("#pd").addEventListener("click",e=>{ if(e.target===$("#pd")) $("#pd").close(); });
+
+/* ================= BAG ================= */
+function saveBag(){ try{localStorage.setItem("seve-bag",JSON.stringify(bag));}catch(e){} }
+function addToBag(id,size=0,silent){
+  const p=byId(id); if(!p) return false; size=size===1?1:0;
+  const it=bag.find(x=>x.id===id&&x.size===size); if(it) it.qty++; else bag.push({id,size,qty:1});
+  saveBag(); renderBag(); if(!silent) toast(`${p.name} ${size?100:50} ml · ${t("added")}`); return true;
+}
+function renderBag(){
+  const n=bag.reduce((a,x)=>a+x.qty,0); $("#bagCount").textContent=n;
+  if(!bag.length){ $("#bagList").innerHTML=`<p class="bag-empty">${t("bagEmpty")}</p>`; $("#bagFoot").innerHTML=""; return; }
+  $("#bagList").innerHTML=bag.map((x,i)=>{const p=byId(x.id); return `<div class="bi"><div class="th" style="background:${dark()?p.tintD:p.tint}">${bottle(p)}</div>
+    <div><b>${esc(p.name)}</b><span class="small">${x.size?100:50} ml</span><div class="qty"><button type="button" data-i2="${i}" data-d="-1" aria-label="-">−</button><span>${x.qty}</span><button type="button" data-i2="${i}" data-d="1" aria-label="+">+</button></div></div>
+    <span>${p.p[x.size]*x.qty} €</span></div>`;}).join("");
+  const sub=bag.reduce((a,x)=>a+byId(x.id).p[x.size]*x.qty,0);
+  const ship=sub>=FREE_SHIPPING_FROM?0:SHIPPING_PRICE;
+  const eur=n=>n.toFixed(2).replace(".00","").replace(".",lang==="fr"?",":".")+" €";
+  $("#bagFoot").innerHTML=`<div class="total small" style="margin-bottom:.4rem"><span>${t("subtotal")}</span><span>${eur(sub)}</span></div>
+    <div class="total small" style="margin-bottom:.8rem"><span>${t("shipping")}</span><span>${ship?eur(ship):t("shipFree")}</span></div>
+    <div class="total"><span>${t("total")}</span><span>${eur(sub+ship)}</span></div>
+    <button class="btn full" type="button" id="checkout">${t("payBtn")}</button>
+    <a class="btn outline full" style="margin-top:.6rem" id="waOrder" target="_blank" rel="noopener">${t("waBtn")}</a>
+    <p class="small" style="margin:.8rem 0 0;text-align:center">${t("secure")}</p>`;
+  $("#checkout").onclick=startCheckout;
+  const lines=bag.map(x=>`- ${byId(x.id).name} ${x.size?100:50} ml x${x.qty}`).join("\n");
+  $("#waOrder").href=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t("waHello")+"\n"+lines)}`;
+  $("#bagList").querySelectorAll("[data-i2]").forEach(b=>b.onclick=()=>{const i=+b.dataset.i2; bag[i].qty+=+b.dataset.d; if(bag[i].qty<=0) bag.splice(i,1); saveBag(); renderBag();});
+}
+$("#bagBtn").onclick=()=>$("#bag").showModal();
+$("#bagClose").onclick=()=>$("#bag").close();
+$("#bag").addEventListener("click",e=>{ if(e.target===$("#bag")) $("#bag").close(); });
+let toastT; function toast(m){ const el=$("#toast"); el.textContent=m; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2600); }
+
+/* ================= PAYMENT ================= */
+async function startCheckout(){
+  const b=$("#checkout"); b.disabled=true; b.textContent=t("redirect");
+  try{
+    const r=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:bag,lang})});
+    const d=await r.json();
+    if(!r.ok||!d.url) throw 0;
+    window.location.href=d.url;
+  }catch(e){ toast(t("payErr")); b.disabled=false; b.textContent=t("payBtn"); }
+}
+(function(){
+  const q=new URLSearchParams(location.search);
+  if(q.get("paid")==="1"){ bag=[]; saveBag(); setTimeout(()=>toast(t("paidMsg")),600); }
+  if(q.get("canceled")==="1"){ setTimeout(()=>{toast(t("canceledMsg")); $("#bag").showModal();},600); }
+  if(q.has("paid")||q.has("canceled")) history.replaceState(null,"",location.pathname);
+})();
+
+/* ================= AI CORE ================= */
+/* Standalone version: AI calls go to our own server function (/api/claude), which holds the API key. */
+async function callAI(messages, tier){
+  const res = await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages,tier})});
+  if(res.status===429) throw {code:"rate_limited"};
+  if(!res.ok) throw {code:"server_error"};
+  const d = await res.json(); return d.text||"";
+}
+sample = async (input, opts={}) => {
+  const messages = typeof input==="string" ? [{role:"user",content:input}] : input;
+  const text = await callAI(messages, opts.modelTier);
+  if(opts.onText) opts.onText({text, delta:text});
+  return {text, truncated:false};
+};
+sample.json = async (input, opts={}) => {
+  const {text} = await sample(input, opts);
+  const m = text.replace(/```json|```/g,"").match(/\{[\s\S]*\}/);
+  if(!m) throw {code:"bad_json"};
+  return JSON.parse(m[0]);
+};
+function errCopy(e){ if(e&&e.code==="not_granted") return t("errDeclined"); if(e&&e.code==="rate_limited") return t("errBusy"); return t("errOther"); }
+const LN=()=>lang==="fr"?"French":"English";
+function catalogText(){ return CATALOG.map(p=>`- id: ${p.id} | ${p.name} | ${p.famL.en} | top: ${p.top.en} | heart: ${p.heart.en} | base: ${p.base.en} | 50 ml €${p.p[0]}, 100 ml €${p.p[1]}`).join("\n"); }
+const HOUSE="Sève is an artisan perfume house in Antibes, France. Tone: warm, refined, concise, sensory, like a knowledgeable boutique advisor at a luxury house. No em dashes. Never invent products, discounts or policies.";
+function resultHead(p){ return `<div class="res-top">${bottle(p)}<div><p class="res-name">${esc(p.name)}</p><p class="res-fam">${p.famL[lang]} · ${t("from")} ${p.p[0]} €</p></div></div>`; }
+function actionBtns(p){ const d=document.createElement("div"); d.className="btns"; d.style.marginTop="auto";
+  const a=document.createElement("button"); a.type="button"; a.className="btn"; a.textContent=t("addBag"); a.onclick=()=>addToBag(p.id,0);
+  const v=document.createElement("button"); v.type="button"; v.className="btn outline"; v.textContent=t("view"); v.onclick=()=>openProduct(p.id);
+  d.append(a,v); return d; }
+function para(txt,cls){ const e=document.createElement("p"); if(cls) e.className=cls; e.textContent=txt||""; return e; }
+
+/* quiz */
+$("#quizForm").addEventListener("submit",async ev=>{
+  ev.preventDefault(); const out=$("#quizOut"); const ans={};
+  for(const q of QUIZ){ const c=document.querySelector(`input[name="${q.id}"]:checked`); if(!c){ out.dataset.filled=1; out.innerHTML=`<p class="status">${t("quizMissing")}</p>`; return; } ans[q.id]=c.value; }
+  if(!sample) return fail(out);
+  const btn=ev.submitter||$("#quizForm button"); btn.disabled=true; busy(out);
+  try{
+    const r=await sample.json(`${HOUSE}\nCollection:\n${catalogText()}\n\nQuiz answers: ${JSON.stringify(ans)}\nScent memory: ${JSON.stringify($("#qMem").value.trim()||"(none)")}\n\nReturn ONLY JSON: {"pick":"<id>","reason":"<2-3 sentences in ${LN()} linking their answers and memory to specific notes>","runnerUp":"<different id>","runnerReason":"<1 sentence in ${LN()}>"}`,{modelTier:"quick"});
+    const p=byId(r.pick)||CATALOG[0]; const ru=byId(r.runnerUp);
+    out.innerHTML=resultHead(p); out.append(para(r.reason));
+    if(ru&&ru.id!==p.id){ const x=para("","small"); x.innerHTML=`<b style="font-weight:400;color:var(--ink)">${lang==="fr"?"Aussi pour vous":"Also for you"} : ${esc(ru.name)}.</b> `; x.append(r.runnerReason||""); out.append(x); }
+    out.append(actionBtns(p));
+  }catch(e){ fail(out,e); } finally{ btn.disabled=false; }
+});
+
+/* gift */
+$("#giftForm").addEventListener("submit",async ev=>{
+  ev.preventDefault(); const out=$("#giftOut"); if(!sample) { out.dataset.filled=1; return fail(out); }
+  const btn=ev.submitter||$("#giftForm button"); btn.disabled=true; busy(out);
+  const lbl=(arr,v)=>(arr.find(o=>o[0]===v)||[,v])[1];
+  const budget=$("#gBudget").value;
+  const from=$("#gFrom").value.trim();
+  try{
+    const r=await sample.json(`${HOUSE}\nCollection:\n${catalogText()}\n\nA customer wants a gift.\nRecipient: ${lbl(T.en.gWhoO,$("#gWho").value)}\nOccasion: ${lbl(T.en.gOccO,$("#gOcc").value)}\nBudget: ${budget==="any"?"no limit":"50 ml bottle must cost at most €"+budget}\nAbout them: ${JSON.stringify($("#gAbout").value.trim())}\nSigned by: ${from?JSON.stringify(from):"(no name, end without a signature)"}\n\nReturn ONLY JSON: {"pick":"<id within budget>","why":"<2 sentences in ${LN()} tying the person's traits to the notes>","card":"<a heartfelt gift card message in ${LN()}, 25-45 words, personal not generic, addressed to the recipient${from?", ending with the signature":""}>"}`,{modelTier:"default"});
+    const p=byId(r.pick)||CATALOG[0];
+    out.innerHTML=resultHead(p); out.append(para(r.why));
+    out.append(para(t("cardLbl"),"small")); out.append(para(r.card,"cardmsg"));
+    out.append(actionBtns(p));
+  }catch(e){ fail(out,e); } finally{ btn.disabled=false; }
+});
+
+/* layering */
+$("#layerForm").addEventListener("submit",async ev=>{
+  ev.preventDefault(); const out=$("#layOut"); const a=byId($("#lA").value), b=byId($("#lB").value);
+  if(a.id===b.id){ out.dataset.filled=1; out.innerHTML=`<p class="status">${t("laySame")}</p>`; return; }
+  if(!sample){ out.dataset.filled=1; return fail(out); }
+  const btn=ev.submitter||$("#layerForm button"); btn.disabled=true; busy(out);
+  try{
+    const r=await sample.json(`${HOUSE}\nYou are a perfumer advising on layering two of the house's perfumes.\nA: ${a.name} (top ${a.top.en}; heart ${a.heart.en}; base ${a.base.en})\nB: ${b.name} (top ${b.top.en}; heart ${b.heart.en}; base ${b.base.en})\nBe honest: if they clash, say so.\nReturn ONLY JSON, all text in ${LN()}: {"nickname":"<an evocative 2-4 word name for the blend>","verdict":"<one of: Harmonious / Bold / Not recommended, translated to ${LN()}>","result":"<2-3 sentences describing how the blend smells over time>","howto":"<1-2 sentences: which one first, how many sprays each, where>"}`,{modelTier:"quick"});
+    out.innerHTML=`<div class="pair">${bottle(a)}<span>+</span>${bottle(b)}</div>`;
+    const v=para(r.verdict,"verdict"); out.append(v);
+    const n=para(r.nickname,"res-name"); n.style.marginBottom=".75rem"; out.append(n);
+    out.append(para(r.result));
+    const h=para("","small"); h.innerHTML=`<b style="font-weight:400;color:var(--ink)">${t("spray")} : </b>`; h.append(r.howto||""); out.append(h);
+  }catch(e){ fail(out,e); } finally{ btn.disabled=false; }
+});
+
+/* moment */
+$("#momForm").addEventListener("submit",async ev=>{
+  ev.preventDefault(); const out=$("#momOut"); if(!sample){ out.dataset.filled=1; return fail(out); }
+  const btn=ev.submitter||$("#momForm button"); btn.disabled=true; busy(out);
+  try{
+    const r=await sample.json(`${HOUSE}\nCollection:\n${catalogText()}\n\nThe customer describes an upcoming moment: ${JSON.stringify($("#mText").value.trim())}\nPick the best perfume for it, considering weather, setting, intimacy and outfit.\nReturn ONLY JSON, text in ${LN()}: {"pick":"<id>","why":"<2-3 sentences>","tip":"<one practical wearing tip for that moment, e.g. number of sprays or where>"}`,{modelTier:"quick"});
+    const p=byId(r.pick)||CATALOG[0];
+    out.innerHTML=resultHead(p); out.append(para(r.why)); out.append(para(r.tip,"small")); out.append(actionBtns(p));
+  }catch(e){ fail(out,e); } finally{ btn.disabled=false; }
+});
+
+/* reviews summary */
+async function summarizeReviews(p){
+  const box=$("#aiSum"); const btn=$("#sumBtn");
+  if(!sample){ box.textContent=t("noAi"); return; }
+  btn.disabled=true; box.innerHTML=`<span class="dots">${t("thinking")}</span>`;
+  try{
+    await sample(`${HOUSE}\nSummarise these customer reviews of ${p.name} for a shopper, in ${LN()}, in 2 short sentences: what people love, and one honest caveat if any. Plain text only.\n${p.reviews.map(r=>`- ${r[1]}/5: ${r[2]}`).join("\n")}`,{modelTier:"quick",onText:({text})=>{box.textContent=text;}}).then(r=>box.textContent=r.text);
+  }catch(e){ box.textContent=e.text||errCopy(e); } finally{ btn.disabled=false; }
+}
+
+/* studio */
+let lastCopy="";
+$("#studioForm").addEventListener("submit",async ev=>{
+  ev.preventDefault(); const out=$("#stOut"); if(!sample){ out.dataset.filled=1; return fail(out); }
+  const btn=ev.submitter||$("#studioForm button"); btn.disabled=true; busy(out);
+  const name=$("#sName").value.trim(), kind=$("#sKind").value;
+  const spec={product:"a product page: tagline (max 10 words), description (70-100 words), how to wear it (1-2 sentences)",
+              instagram:"an Instagram caption: hook line, 2-3 short sensory lines, a call to action, 5-8 relevant hashtags",
+              newsletter:"a launch newsletter: subject line, preview text, body of 90-130 words, button label"}[kind];
+  try{
+    const r=await sample.json(`${HOUSE}\nWrite ${spec} for a new perfume.\nName: ${name}\nNotes: ${$("#sNotes").value.trim()}\nInspiration: ${$("#sStory").value.trim()||"(none)"}\nTone: ${$("#sTone").value}\nNo clichés like "unleash", "embark", "elevate". The French must read as native French, not a translation.\nReturn ONLY JSON: {"fr":[{"label":"<section label in French>","text":"..."}],"en":[{"label":"<section label in English>","text":"..."}]}`,{modelTier:"default"});
+    out.innerHTML=""; lastCopy=name;
+    for(const code of ["fr","en"]){
+      const h=document.createElement("h4"); h.innerHTML=`<span class="tag">${code.toUpperCase()}</span>`; h.append(name); out.append(h);
+      lastCopy+=`\n\n[${code.toUpperCase()}]`;
+      (r[code]||[]).forEach(s=>{ const pEl=document.createElement("p"); const b=document.createElement("b"); b.style.fontWeight="500"; b.textContent=s.label+" : "; pEl.append(b,s.text||""); out.append(pEl); lastCopy+=`\n${s.label}: ${s.text}`; });
+    }
+    const c=document.createElement("button"); c.type="button"; c.className="btn outline"; c.style.marginTop="1.25rem"; c.style.alignSelf="flex-start"; c.textContent=t("copy");
+    c.onclick=async()=>{ try{ await navigator.clipboard.writeText(lastCopy); c.textContent=t("copied"); }catch(e){ const ta=document.createElement("textarea"); ta.value=lastCopy; document.body.append(ta); ta.select(); try{document.execCommand("copy"); c.textContent=t("copied");}catch(_){} ta.remove(); } };
+    out.append(c);
+  }catch(e){ fail(out,e); } finally{ btn.disabled=false; }
+});
+
+/* ================= CONCIERGE ================= */
+let chatHistory=[], chatBusy=false;
+function renderLog(){ $("#log").innerHTML=""; addMsg("bot",t("chatHello")); }
+function addMsg(who,txt){ const d=document.createElement("div"); d.className="msg "+who; d.textContent=txt; $("#log").append(d); $("#log").scrollTop=$("#log").scrollHeight; return d; }
+function renderChips(){ $("#chips").innerHTML=""; if(chatHistory.length) return; t("chips").forEach(c=>{const b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=c; b.onclick=()=>{$("#chatIn").value=c; sendChat();}; $("#chips").append(b);}); }
+$("#fab").onclick=()=>{ $("#chat").hidden=false; $("#fab").hidden=true; $("#chatIn").focus(); };
+$("#chatClose").onclick=()=>{ $("#chat").hidden=true; $("#fab").hidden=false; $("#fab").focus(); };
+async function sendChat(){
+  const q=$("#chatIn").value.trim(); if(!q||chatBusy) return;
+  $("#chatIn").value=""; $("#chips").innerHTML=""; addMsg("me",q);
+  const bubble=addMsg("bot","…");
+  if(!sample){ bubble.textContent=t("noAi"); return; }
+  chatBusy=true; $("#chatBtn").disabled=true;
+  const bagTxt=bag.length?bag.map(x=>`${byId(x.id).name} ${x.size?100:50}ml x${x.qty}`).join(", "):"empty";
+  const sys=`${HOUSE}\nYou are the online boutique advisor. Collection:\n${catalogText()}\nCustomer's bag: ${bagTxt}.\nReply in the customer's language (default ${LN()}), 2-4 sentences, plain text, no markdown. Recommend at most two perfumes. If the customer clearly asks to add something to their bag, confirm briefly and put this tag alone on the last line: [[ADD <id> <50 or 100>]]. Never use the tag otherwise. For shipping, returns or stock questions, say the team answers at contact@seve-parfums.fr or on WhatsApp. Payment is by card (Stripe) at checkout; delivery is free from €100, otherwise €6.90.`;
+  const convo=[{role:"user",content:sys+"\n\nCustomer: "+(chatHistory[0]?.content??q)}, ...chatHistory.slice(1)];
+  if(chatHistory.length) convo.push({role:"user",content:q});
+  try{
+    const r=await sample(convo,{modelTier:"quick"});
+    let reply=r.text;
+    reply=reply.replace(/\[\[ADD\s+([a-z-]+)\s*(\d+)?\]\]/g,(m,id,ml)=>{ const s2=ml==="100"?1:0; if(addToBag(id,s2,true)) addMsg("sys",`${byId(id).name} ${s2?100:50} ml ${t("chatAdded")}`); return ""; }).trim();
+    bubble.textContent=reply; $("#log").append(bubble);
+    chatHistory.push({role:"user",content:q},{role:"assistant",content:reply});
+    if(chatHistory.length>16) chatHistory=chatHistory.slice(-16);
+  }catch(e){ bubble.textContent=e.text||errCopy(e); }
+  finally{ chatBusy=false; $("#chatBtn").disabled=false; }
+}
+$("#chatForm").addEventListener("submit",e=>{e.preventDefault();sendChat();});
+
+/* ================= MISC ================= */
+$("#newsForm").addEventListener("submit",e=>{e.preventDefault(); $("#newsOk").textContent=t("newsOk"); e.target.reset();});
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.lang; try{localStorage.setItem("seve-lang",lang);}catch(e){} renderAll();});
+function renderArt(){
+  const [a,b,c]=[byId("iris-pluie"),byId("figue-noire"),byId("sel-diode")];
+  $("#heroArt").innerHTML=`<div class="b b1">${bottle(a)}</div><div class="b b2">${bottle(b)}</div><div class="b b3">${bottle(c)}</div>`;
+  $("#storyArt").innerHTML=`<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="#F4EEF6" stroke-opacity=".7" stroke-width="1">
+      <circle cx="150" cy="150" r="110"/><circle cx="150" cy="150" r="80" stroke-opacity=".4"/>
+      <path d="M150 260 C150 200 150 150 150 60"/>
+      ${[0,1,2,3,4,5].map(i=>{const y=90+i*26, s=i%2?1:-1, l=38-i*3; return `<path d="M150 ${y} C${150+s*l*.6} ${y-18} ${150+s*l} ${y-10} ${150+s*l*1.15} ${y-26} C${150+s*l*.7} ${y-6} ${150+s*l*.3} ${y+2} 150 ${y}" fill="#B79AD6" fill-opacity=".25"/>`;}).join("")}
+    </g>
+    <text x="150" y="292" text-anchor="middle" font-family="Jost, sans-serif" font-size="9" letter-spacing="4" fill="#F4EEF6" fill-opacity=".7">ANTIBES · FRANCE</text>
+  </svg>`;
+}
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{renderGrid();renderBag();});
+renderArt(); renderAll();
+</script>
+</body>
+</html>
